@@ -1,0 +1,12 @@
+# Pastas de configuração:
+/git
+/.vscode
+
+
+
+# Arquivos de configuração:
+/dashboard/node_modules
+/widget/node_modules
+
+
+
