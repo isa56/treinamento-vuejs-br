@@ -2,6 +2,7 @@
 <script>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import useModal from '../../hooks/useModal'
 
 import CustomHeader from './CustomHeader.vue'
 import Contact from './Contact.vue'
@@ -11,13 +12,17 @@ export default {
 
     setup() {
 
-        const router = useRouter
+        const router = useRouter()
+        const modal = useModal()
 
         function handleLogin() {
-
+            modal.open({ 
+                component: 'ModalLogin'
+            })
         }
 
         function handleAccountCreate() {
+            modal.open({ component: 'ModalCreateAccount'})
 
         }
 
