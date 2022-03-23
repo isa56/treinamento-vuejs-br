@@ -1,34 +1,79 @@
 <script>
 import { reactive } from 'vue'
+import { useField } from 'vee-validate'
+import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
+
 import useModal from '@/hooks/useModal'
+import { validateEmptyAndLength4, validateEmptyAndEmail } from '@/utils/validators'
+import services from '@/services'
+import Icon from '@/components/Icon'
+
 
 export default {
-    components: {},
+    components: { Icon },
     setup() {
 
         const modal = useModal()
+        const router = useRouter()
+        const toast = useToast()
+
+        const { value: emailValue, errorMessage: emailErrorMessage } = useField('email', validateEmptyAndEmail)
+        const { value: passwordValue, errorMessage: passwordErrorMessage } = useField('password', validateEmptyAndLength4)
 
         const state = reactive({
             hasErrors: false,
             isLoading: false,
             email: {
-                value: '',
-                errorMessage: false
+                value: emailValue,
+                errorMessage: emailErrorMessage
             },
             password: {
-                value: '',
-                errorMessage: false
+                value: passwordValue,
+                errorMessage: passwordErrorMessage
             }
         })
 
-        function handleSubmit() {
+        async function handleSubmit() {
+            try {
 
+                toast.clear()
+                state.isLoading = true
+                const { data, errors } = await services.auth.login({ email: state.email.value, password: state.password.value })
+
+                if (!errors) {
+                    window.localStorage.setItem('token', data.token)
+                    router.push({ name: 'Feedbacks' })
+                    state.isLoading = false
+                    modal.close()
+                }
+
+                if (errors.status === 404) {
+                    toast.error('E-mail não encontrado ' + + errors.status)
+                }
+
+                if (errors.status === 401) {
+                    toast.error('E-mail/senha inválidos ' + errors.status)
+                }
+
+                if (errors.status === 400) {
+                    toast.error('Ocorreu um erro ao fazer o login: ' + errors.status)
+                }
+
+                state.isLoading = false
+
+            } catch (error) {
+                state.isLoading = false
+                state.hasErrors = !!error
+                toast.error('Ocorreu um erro ao fazer o login: ' + errors.status)
+            }
         }
 
 
         return {
             state,
-            closeModal: modal.close
+            handleSubmit,
+            closeModal: modal.close,
         }
     },
 
@@ -40,7 +85,7 @@ export default {
     <div class="flex justify-between">
         <h1 class="text-4xl font-black text-gray-800">Entre na sua conta</h1>
 
-        <button class="text-4xl text-gray-600 focus:outline-none" @click="close">&times;</button>
+        <button class="text-4xl text-gray-600 focus:outline-none" @click="closeModal">&times;</button>
     </div>
 
     <div class="mt-16">
@@ -80,7 +125,12 @@ export default {
                 type="submit"
                 class="px-8 py-3 mt-10 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 :class="{ 'opacity-50': state.isLoading }"
-            >Entrar</button>
+                @click="handleSubmit"
+            >
+            <icon v-if="state.isLoading" name="loading" class="animate-spin" />
+            <span v-else>Entrar</span>
+            </button>
+
         </form>
     </div>
 </template>
