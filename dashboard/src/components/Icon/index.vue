@@ -1,24 +1,21 @@
 <script>
 import Loading from './Loading.vue'
+import Copy from './Copy.vue'
 
 export default {
     props: {
-        name: {type: String, required: true},
+        name: { type: String, required: true },
     },
-    components: {Loading},
+    components: { Loading, Copy },
 
 }
 </script>
 
 
 <template>
-
     <component :is="name" v-bind="$props" />
-
 </template>
 
 
 <style scoped>
-
-
 </style>

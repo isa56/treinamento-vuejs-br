@@ -9,11 +9,13 @@ import ModalFactory from '@/components/ModalFactory'
 import { watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import services from './services'
+import { setCurrentUser } from './store/user'
 
 export default {
   components: { ModalFactory },
   setup() {
 
+    // const store = useStore(user)
     const router = useRouter()
     const route = useRoute()
 
