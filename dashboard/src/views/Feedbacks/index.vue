@@ -1,5 +1,5 @@
 <script>
-import { reactive } from 'vue'
+import { onErrorCaptured, reactive } from 'vue'
 import HeaderLogged from '@/components/HeaderLogged'
 import FeedbackCard from '@/components/FeedbackCard'
 import FeedbackCardLoading from '@/components/FeedbackCardLoading'
@@ -32,6 +32,10 @@ export default {
 
         onUnmounted(() => {
             window.addEventListener('scroll', handleScroll, false)
+        })
+
+        onErrorCaptured(error => {
+            handleErrors(error)
         })
 
 
