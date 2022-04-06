@@ -1,12 +1,13 @@
 <script>
 import Loading from './Loading.vue'
 import Copy from './Copy.vue'
+import ChevronDown from './ChevronDown.vue'
 
 export default {
     props: {
         name: { type: String, required: true },
     },
-    components: { Loading, Copy },
+    components: { Loading, Copy, ChevronDown },
 
 }
 </script>
