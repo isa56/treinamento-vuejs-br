@@ -1,15 +1,15 @@
 <script>
-import { onErrorCaptured, reactive } from 'vue'
+import { onErrorCaptured, onMounted, onUnmounted, reactive } from 'vue'
 import HeaderLogged from '@/components/HeaderLogged'
 import FeedbackCard from '@/components/FeedbackCard'
-import FeedbackCardLoading from '@/components/FeedbackCardLoading'
+import FeedbackCardLoading from '@/components/FeedbackCard/Loading'
 import Filters from './Filters'
 import FiltersLoading from './FiltersLoading'
-import services from '@/services'
+import services from '../../services'
 
 export default {
     components: { HeaderLogged, Filters, FiltersLoading, FeedbackCard, FeedbackCardLoading },
-    setup() {
+    async setup() {
 
         const state = reactive({
             currentFeedbackType: '',
@@ -29,9 +29,8 @@ export default {
             fetchFeedbacks()
             window.addEventListener('scroll', handleScroll, false)
         })
-
         onUnmounted(() => {
-            window.addEventListener('scroll', handleScroll, false)
+            window.removeEventListener('scroll', handleScroll, false)
         })
 
         onErrorCaptured(error => {
@@ -41,9 +40,9 @@ export default {
 
         async function handleScroll() {
 
-            state.isLoadingMoreFeedbacks = false
-
-            const isBottomOfWindow = Math.ceil(document.documentElement.scrollTop + window.innerHeight) >= document.documentElement.scrollHeight
+            const isBottomOfWindow = Math.ceil(
+                document.documentElement.scrollTop + window.innerHeight
+            ) >= document.documentElement.scrollHeight
 
             if (state.isLoading || state.isLoadingMoreFeedbacks) return
 
@@ -53,10 +52,13 @@ export default {
 
             try {
 
-                state.isLoadingMoreFeedbacks = true
-                const { data } = await services.feedbacks.getAll({
-                    ...state.pagination, type: state.currentFeedbackType, offset: (state.pagination.offset + 5)
-                })
+                state.isLoadingMoreFeedbacks = true;
+
+                const { data } = await (services.feedbacks.getAll({
+                    ...state.pagination,
+                    type: state.currentFeedbackType,
+                    offset: (state.pagination.offset + 5)
+                }))
 
                 if (data.results.length) {
                     state.feedbacks.push(...data.results)
@@ -73,7 +75,7 @@ export default {
         }
 
         function handleErrors(error) {
-            state.hasError = !!error
+            state.hasErrors = !!error
             state.isLoading = false
             state.isLoadingFeedbacks = false
             state.isLoadingMoreFeedbacks = false
