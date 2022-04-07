@@ -43,21 +43,25 @@ export default {
 
                 if (!errors) {
                     window.localStorage.setItem('token', data.token)
-                    router.push({ name: 'Feedbacks' })
+                    router.push({ name: 'feedbacks' })
                     state.isLoading = false
                     modal.close()
+                    return
                 }
 
                 if (errors.status === 404) {
                     toast.error('E-mail não encontrado ' + + errors.status)
+                    console.log(errors)
                 }
 
                 if (errors.status === 401) {
                     toast.error('E-mail/senha inválidos ' + errors.status)
+                    console.log(errors)
                 }
 
                 if (errors.status === 400) {
-                    toast.error('Ocorreu um erro ao fazer o login: ' + errors.status)
+                    toast.error('Ocorreu um erro 400 ao fazer o login: ' + errors.status)
+                    console.log(errors)
                 }
 
                 state.isLoading = false
@@ -65,7 +69,8 @@ export default {
             } catch (error) {
                 state.isLoading = false
                 state.hasErrors = !!error
-                toast.error('Ocorreu um erro ao fazer o login: ' + errors.status)
+                toast.error('Ocorreu um erro ao fazer o login: ' + error.status)
+                console.log("entrei no catch", error)
             }
         }
 
@@ -127,10 +132,9 @@ export default {
                 :class="{ 'opacity-50': state.isLoading }"
                 @click="handleSubmit"
             >
-            <icon v-if="state.isLoading" name="loading" class="animate-spin" />
-            <span v-else>Entrar</span>
+                <icon v-if="state.isLoading" name="loading" class="animate-spin" />
+                <span v-else>Entrar</span>
             </button>
-
         </form>
     </div>
 </template>

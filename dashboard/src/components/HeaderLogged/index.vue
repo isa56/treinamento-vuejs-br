@@ -10,6 +10,9 @@ export default {
         const store = useStore()
         const router = useRouter('User')
 
+        console.log("Current user", store.currentUser)
+        console.log("Current user name", store.currentUser.name)
+
         const logoutLabel = computed(() => {
             if (store.currentUser.name) {
                 return '...'

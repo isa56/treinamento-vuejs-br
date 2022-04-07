@@ -15,7 +15,6 @@ export default {
   components: { ModalFactory },
   setup() {
 
-    // const store = useStore(user)
     const router = useRouter()
     const route = useRoute()
 
@@ -24,14 +23,12 @@ export default {
         const token = window.localStorage.getItem('token')
 
         if (!token) {
-          router.push({ name: 'Home' })
+          router.push({ name: 'home' })
           return
         }
 
         const { data } = await services.users.getMe()
-        console.log('data', data);
-
-
+        setCurrentUser(data)
       }
     })
 

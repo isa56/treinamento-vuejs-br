@@ -26,6 +26,7 @@ export default {
         })
 
         onMounted(() => {
+            console.log("Carregando...")
             fetchFeedbacks()
             window.addEventListener('scroll', handleScroll, false)
         })
@@ -89,7 +90,7 @@ export default {
                 state.pagination.limit = 5
                 state.currentFeedbackType = type
 
-                const { data } = await services.feedback.getAll({ type, ...state.pagination })
+                const { data } = await services.feedbacks.getAll({ type, ...state.pagination })
 
                 state.feedbacks = data.results
                 state.pagination = data.pagination
@@ -100,7 +101,7 @@ export default {
             }
         }
 
-        function fetchFeedbacks() {
+        async function fetchFeedbacks() {
             try {
 
                 state.isLoading = true

@@ -3,14 +3,6 @@ import ContentLoader from '@/components/ContentLoader'
 
 export default {
     components: { ContentLoader },
-    setup() {
-
-
-        return {
-
-        }
-    },
-
 }
 </script>
 

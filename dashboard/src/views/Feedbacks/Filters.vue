@@ -44,7 +44,7 @@ export default {
         const store = useStore('Global')
 
         const state = reactive({
-            hasError,
+            hasError: false,
             filter: [
                 { label: null, amount: null }
             ]
@@ -65,7 +65,7 @@ export default {
                 return
             }
 
-            state.filters = state.filters.map((filter) => {
+            state.filter = state.filter.map((filter) => {
                 if (filter.type === type) {
                     return { ...filter, active: true }
                 }

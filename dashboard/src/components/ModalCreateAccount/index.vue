@@ -44,7 +44,7 @@ export default {
 
             if (!errors) {
                 window.localStorage.setItem('token', data.token)
-                router.push({ name: 'Feedbacks' })
+                router.push({ name: 'feedbacks' })
                 modal.close()
             }
 
@@ -68,22 +68,26 @@ export default {
 
                 if (errors.status === 404) {
                     toast.error('E-mail não encontrado ' + + errors.status)
+                    console.log(errors)
                 }
 
                 if (errors.status === 401) {
                     toast.error('E-mail/senha inválidos ' + errors.status)
+                    console.log(errors)
                 }
 
                 if (errors.status === 400) {
                     toast.error('Ocorreu um erro ao criar conta: ' + errors.status)
+                    console.log(errors)
                 }
 
                 state.isLoading = false
 
-            } catch (error) {
+            } catch (errors) {
                 state.isLoading = false
-                state.hasErrors = !!error
+                state.hasErrors = !!errors
                 toast.error('Ocorreu um erro ao fazer ao criar conta: ' + errors.status)
+                console.log(errors)
             }
         }
 
