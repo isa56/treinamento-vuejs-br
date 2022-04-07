@@ -43,12 +43,16 @@ export default {
 
         const store = useStore('Global')
 
+        console.log("Store", store)
+
         const state = reactive({
             hasError: false,
             filter: [
                 { label: null, amount: null }
             ]
         })
+
+        console.log("state", state)
 
         try {
             const { data } = await services.feedbacks.getSummary()
@@ -74,9 +78,6 @@ export default {
 
             emit('select', type)
 
-            if (filter.type === type) {
-
-            }
         }
 
 

@@ -23,7 +23,7 @@ export default {
         const toast = useToast()
 
         watch(() => store.User.currentUser, () => {
-            if(!store.Global.isLoading && !store.User.currentUser.apiKey) {
+            if (!store.Global.isLoading && !store.User.currentUser.apiKey) {
                 handleError(true)
             }
         })
@@ -31,20 +31,20 @@ export default {
         function handleError(error) {
             state.isLoading = false
             state.hasError = !!error
-            console.log(error)
+            console.log("Error", error)
         }
 
         async function handleGenerateApiKey() {
-            try { 
+            try {
                 state.isLoading = true
 
-                const {data} = await services.users.generateApiKey()
+                const { data } = await services.users.generateApikey()
 
                 setApiKey(data.apiKey)
 
 
                 state.isLoading = false
-            } catch(error) {
+            } catch (error) {
                 handleError(error)
             }
         }
@@ -52,9 +52,9 @@ export default {
         async function handleCopy() {
             toast.clear()
             try {
-                await navigator.clipboard.writeText(store.User.currentUser,apiKey)
+                await navigator.clipboard.writeText(store.User.currentUser.apiKey)
                 toast.success("Copiado com sucesso!")
-            } catch(error) {
+            } catch (error) {
                 handleError(error)
             }
         }
@@ -97,12 +97,12 @@ export default {
                 height="50px"
                 width="600px"
             />
-                <span v-if="state.hasError">Erro ao carrgear a API Key</span>
+            <span v-if="state.hasError">Erro ao carregar a API Key</span>
             <div
                 v-else
                 class="flex py-3 pl-5 py-20 mt-2 w-full justify-between rounded items-center bg-brand-gray lg:w-2/3"
             >
-                <span v-if="!state.hasError">{{ store.User.currentUser.apiKey }}</span>
+                <span v-if="!state.hasError" id="apikey">{{ store.User.currentUser.apiKey }}</span>
 
                 <div v-if="!state.hasError" class="flex ml-20 mr-5">
                     <icon
@@ -118,6 +118,7 @@ export default {
                         :color="brandColors.graydark"
                         size="24"
                         class="cursor-pointer ml-3"
+                        id="generate-apikey"
                     />
                 </div>
             </div>
@@ -137,7 +138,6 @@ export default {
                 v-else
                 class="flex py-3 pl-5 pr-20 mt-2 bg-brand-gray w-full lg:w-2/3 overflow-x-scroll"
             >
-
                 <span v-if="state.hasError">Erro ao carrgear o script</span>
                 <pre v-else class="break-normal w-full">&lt;script src="https://isa56-feedbacker-widget.netlify.app?api_key={{ store.User.currentUser.apiKey }}"&gt;&lt;/script&gt;</pre>
                 <div class="flex ml-20 mr-5">

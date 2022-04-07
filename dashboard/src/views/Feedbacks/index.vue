@@ -1,15 +1,22 @@
 <script>
-import { onErrorCaptured, onMounted, onUnmounted, reactive } from 'vue'
+import { onBeforeMount, onErrorCaptured, onMounted, onUnmounted, reactive } from 'vue'
 import HeaderLogged from '@/components/HeaderLogged'
 import FeedbackCard from '@/components/FeedbackCard'
 import FeedbackCardLoading from '@/components/FeedbackCard/Loading'
 import Filters from './Filters'
 import FiltersLoading from './FiltersLoading'
-import services from '../../services'
+import services from '@/services'
 
 export default {
-    components: { HeaderLogged, Filters, FiltersLoading, FeedbackCard, FeedbackCardLoading },
-    async setup() {
+    components: { 
+        HeaderLogged,
+        Filters,
+        FiltersLoading,
+        FeedbackCard,
+        FeedbackCardLoading
+    },
+
+    setup() {
 
         const state = reactive({
             currentFeedbackType: '',
@@ -30,6 +37,11 @@ export default {
             fetchFeedbacks()
             window.addEventListener('scroll', handleScroll, false)
         })
+
+        onBeforeMount(() => {
+            console.log("Before Mount...")
+        })
+
         onUnmounted(() => {
             window.removeEventListener('scroll', handleScroll, false)
         })
@@ -108,6 +120,8 @@ export default {
                 const { data } = await services.feedbacks.getAll({
                     ...state.pagination, type: state.currentFeedbackType
                 })
+
+                console.log("I'm fetching the feedbacks...")
 
                 state.feedbacks = data.results
                 state.pagination = data.pagination

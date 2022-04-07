@@ -1,5 +1,3 @@
-// import
-
 
 export function validateEmptyAndLength4(value) {
 
