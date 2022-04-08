@@ -5,7 +5,6 @@ const defaultPagination = {
 
 export default (httpClient) => ({
     getAll: async ({ type, limit, offset } = defaultPagination) => {
-        console.log("Getting all feedbacks...")
         const query = { limit, offset }
         if (type) {
             query.type = type

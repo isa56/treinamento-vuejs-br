@@ -7,14 +7,13 @@ import { cleanCurrentUser } from "@/store/user"
 
 export default {
     setup() {
-        const store = useStore()
-        const router = useRouter('User')
+        const store = useStore('User')
+        const router = useRouter()
 
         console.log("Current user", store.currentUser)
-        console.log("Current user name", store.currentUser.name)
 
         const logoutLabel = computed(() => {
-            if (store.currentUser.name) {
+            if (!store.currentUser.name) {
                 return '...'
             }
             return `${store.currentUser.name}, sair`
@@ -22,8 +21,8 @@ export default {
 
         function handleLogout() {
             window.localStorage.removeItem('token')
-            cleanCurrentUser
-            router.push({name: 'home'})
+            cleanCurrentUser()
+            router.push({ name: 'home' })
         }
 
         return {
@@ -36,9 +35,8 @@ export default {
 }
 </script>
 
-
 <template>
-    <div class="flex items-center justify-between w-4/5 max-w-6xl py-10">
+    <div class="flex items-center justify-between w-full max-w-6xl py-10">
         <div class="w-28 lg:w-36">
             <img src="@/assets/images/logo_white.png" alt="Logo" class="w-full" />
         </div>

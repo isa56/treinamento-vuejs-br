@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 
 const state = reactive({
-    isLoading: false,
+    isLoading: false
 })
 
 export default state

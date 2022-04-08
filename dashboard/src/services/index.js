@@ -15,6 +15,7 @@ const httpClient = axios.create({
     baseURL: API_ENVS.local
 })
 
+
 httpClient.interceptors.request.use(config => {
     setGlobalLoading(true)
     const token = window.localStorage.getItem('token')
@@ -47,6 +48,7 @@ httpClient.interceptors.response.use((response) => {
 })
 
 export default {
+
     auth: AuthService(httpClient),
     users: UsersService(httpClient),
     feedbacks: FeedbacksService(httpClient)

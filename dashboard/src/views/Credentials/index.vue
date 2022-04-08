@@ -16,11 +16,11 @@ export default {
     setup() {
 
         const store = useStore()
+        const toast = useToast()
         const state = reactive({
             isLoading: false,
             hasError: false
         })
-        const toast = useToast()
 
         watch(() => store.User.currentUser, () => {
             if (!store.Global.isLoading && !store.User.currentUser.apiKey) {
@@ -31,7 +31,7 @@ export default {
         function handleError(error) {
             state.isLoading = false
             state.hasError = !!error
-            console.log("Error", error)
+            console.log("Error in Credentials", error)
         }
 
         async function handleGenerateApiKey() {
@@ -73,7 +73,7 @@ export default {
 
 
 <template>
-    <div class="flex justify-center w-full h-28 bg-brando-main">
+    <div class="flex justify-center w-full h-28 bg-brand-main">
         <header-logged />
     </div>
 

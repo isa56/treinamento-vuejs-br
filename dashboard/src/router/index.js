@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/feedbacks',
     name: 'feedbacks',
-    component: () => FeedbacksView,
+    component: FeedbacksView,
     meta: {
       hasAuth: true
     }
@@ -22,14 +22,14 @@ const routes = [
   {
     path: '/credentials',
     name: 'credentials',
-    component: () => CredentialsView,
+    component: CredentialsView,
     meta: {
       hasAuth: true
     }
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: { name: HomeView }
+    redirect: { name: 'home' }
   }
 ]
 

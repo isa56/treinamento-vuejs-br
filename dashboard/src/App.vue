@@ -21,17 +21,14 @@ export default {
     watch(() => route.path, async () => {
       if (route.meta.hasAuth) {
         const token = window.localStorage.getItem('token')
-
         if (!token) {
           router.push({ name: 'home' })
           return
         }
-
         const { data } = await services.users.getMe()
         setCurrentUser(data)
       }
     })
-
 
   }
 

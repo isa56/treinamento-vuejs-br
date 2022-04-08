@@ -1,149 +1,114 @@
 <script>
-import { onBeforeMount, onErrorCaptured, onMounted, onUnmounted, reactive } from 'vue'
-import HeaderLogged from '@/components/HeaderLogged'
-import FeedbackCard from '@/components/FeedbackCard'
-import FeedbackCardLoading from '@/components/FeedbackCard/Loading'
+
+import { reactive, onMounted, onUnmounted, onErrorCaptured } from 'vue'
 import Filters from './Filters'
 import FiltersLoading from './FiltersLoading'
-import services from '@/services'
-
+import HeaderLogged from '../../components/HeaderLogged'
+import FeedbackCard from '../../components/FeedbackCard'
+import FeedbackCardLoading from '../../components/FeedbackCard/Loading'
+import services from '../../services'
 export default {
-    components: { 
+    components: {
         HeaderLogged,
         Filters,
         FiltersLoading,
         FeedbackCard,
         FeedbackCardLoading
     },
-
     setup() {
-
         const state = reactive({
-            currentFeedbackType: '',
-            feedbacks: [],
-            hasErrors: false,
             isLoading: false,
             isLoadingFeedbacks: false,
             isLoadingMoreFeedbacks: false,
+            feedbacks: [],
+            currentFeedbackType: '',
             pagination: {
                 limit: 5,
                 offset: 0,
                 total: 0
             },
+            hasError: false
         })
-
+        onErrorCaptured(handleErrors)
         onMounted(() => {
-            console.log("Carregando...")
             fetchFeedbacks()
             window.addEventListener('scroll', handleScroll, false)
         })
-
-        onBeforeMount(() => {
-            console.log("Before Mount...")
-        })
-
         onUnmounted(() => {
             window.removeEventListener('scroll', handleScroll, false)
         })
-
-        onErrorCaptured(error => {
-            handleErrors(error)
-        })
-
-
+        function handleErrors(error) {
+            state.isLoading = false
+            state.isLoadingFeedbacks = false
+            state.isLoadingMoreFeedback = false
+            state.hasError = !!error
+        }
         async function handleScroll() {
-
             const isBottomOfWindow = Math.ceil(
                 document.documentElement.scrollTop + window.innerHeight
             ) >= document.documentElement.scrollHeight
-
             if (state.isLoading || state.isLoadingMoreFeedbacks) return
-
             if (!isBottomOfWindow) return
-
             if (state.feedbacks.length >= state.pagination.total) return
-
             try {
-
-                state.isLoadingMoreFeedbacks = true;
-
-                const { data } = await (services.feedbacks.getAll({
+                state.isLoadingMoreFeedbacks = true
+                const { data } = await services.feedbacks.getAll({
                     ...state.pagination,
                     type: state.currentFeedbackType,
                     offset: (state.pagination.offset + 5)
-                }))
-
+                })
                 if (data.results.length) {
                     state.feedbacks.push(...data.results)
                 }
-
                 state.isLoadingMoreFeedbacks = false
                 state.pagination = data.pagination
-
             } catch (error) {
                 state.isLoadingMoreFeedbacks = false
                 handleErrors(error)
             }
-
         }
-
-        function handleErrors(error) {
-            state.hasErrors = !!error
-            state.isLoading = false
-            state.isLoadingFeedbacks = false
-            state.isLoadingMoreFeedbacks = false
-            console.log(error)
-        }
-
         async function changeFeedbacksType(type) {
             try {
                 state.isLoadingFeedbacks = true
                 state.pagination.offset = 0
                 state.pagination.limit = 5
                 state.currentFeedbackType = type
-
-                const { data } = await services.feedbacks.getAll({ type, ...state.pagination })
-
+                const { data } = await services.feedbacks.getAll({
+                    type,
+                    ...state.pagination
+                })
                 state.feedbacks = data.results
                 state.pagination = data.pagination
                 state.isLoadingFeedbacks = false
-
             } catch (error) {
                 handleErrors(error)
             }
         }
-
         async function fetchFeedbacks() {
             try {
-
                 state.isLoading = true
                 const { data } = await services.feedbacks.getAll({
-                    ...state.pagination, type: state.currentFeedbackType
+                    ...state.pagination,
+                    type: state.currentFeedbackType
                 })
-
-                console.log("I'm fetching the feedbacks...")
-
                 state.feedbacks = data.results
                 state.pagination = data.pagination
                 state.isLoading = false
-
             } catch (error) {
                 handleErrors(error)
             }
         }
-
         return {
-            changeFeedbacksType,
             state,
+            changeFeedbacksType
         }
-    },
-
+    }
 }
 </script>
 
 
 <template>
-    <div class="flex justify-center w-full h-28 bg-brando-main">
+    <div class="flex justify-center w-full h-28 bg-brand-main">
         <header-logged />
     </div>
 

@@ -4,11 +4,11 @@
             <badge :type="feedback.type" />
 
             <span
-                class="font-regular text-brand-darkgray"
+                class="font-regular text-brand-graydark"
             >{{ getDiffTimeBetweenCurrentDate(feedback.createdAt) }}</span>
         </div>
 
-        <div class="text-lg font-medium text-gray-">{{ feedback.text }}</div>
+        <div class="text-lg font-medium text-gray-800">{{ feedback.text }}</div>
 
         <div
             :class="{ animate__fadeOutUp: state.isClosing }"
@@ -61,10 +61,10 @@ export default {
         feedback: { type: Object, required: true },
         isOpened: { type: Boolean, default: false }
     },
-    setup() {
+    setup(props) {
 
         const state = reactive({
-            isClosing: !isOpened,
+            isClosing: !props.isOpened,
             isOpen: props.isOpened
         })
 
@@ -73,9 +73,8 @@ export default {
 
             await wait(250)
 
-            state.isClosing = false
-
             state.isOpen = !state.isOpen
+            state.isClosing = false
         }
 
         return {

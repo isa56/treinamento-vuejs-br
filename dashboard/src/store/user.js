@@ -17,7 +17,6 @@ export function cleanCurrentUser() {
 }
 
 export function setCurrentUser(user) {
-    console.log(user)
     state.currentUser = user
 }
 
