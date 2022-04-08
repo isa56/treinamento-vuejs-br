@@ -53,6 +53,7 @@ export default {
                 <li
                     class="px-5 py-2 font-bold bg-white rounded-full cursor-pointer text-brand-main focus:outline-none"
                     @click="handleLogout"
+                    id="logout-button"
                 >{{ logoutLabel }}</li>
             </ul>
         </div>
