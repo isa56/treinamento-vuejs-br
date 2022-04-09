@@ -1,6 +1,6 @@
 import Home from '.'
 import { shallowMount } from '@vue/test-utils'
-import routes from '@/router/index'
+import { routes } from '@/router/index'
 
 import { createRouter, createWebHistory } from 'vue-router'
 
