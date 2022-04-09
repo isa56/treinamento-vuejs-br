@@ -25,11 +25,13 @@ export default {
                     <button
                         class="px-6 py-2 font-bold rounded-full text-white"
                         @click="() => emit('create-account')"
+                        id="header-create-account-button"
                     >Crie uma conta</button>
 
                     <button
                         @click="() => emit('login')"
                         class="px-6 py-2 font-bold bg-white rounded-full text-brand-main focus:outline-none"
+                        id="header-login-button"
                     >Entrar</button>
                 </div>
             </div>
@@ -50,6 +52,7 @@ export default {
                     <button
                         @click="() => emit('create-account')"
                         class="px-6 py-2 mt-10 font-bold bg-white rounded-full text-brand-main focus:outline-none"
+                        id="cta-create-account-button"
                     >Crie uma conta grátis</button>
                 </div>
             </div>

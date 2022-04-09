@@ -1,16 +1,3 @@
-<script>
-
-export default {
-    setup() {
-
-        return {
-
-        }
-    },
-
-}
-</script>
-
 
 <template>
     <div class="flex justify-center w-full">

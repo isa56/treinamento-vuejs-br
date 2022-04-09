@@ -90,7 +90,7 @@ export default {
 
 
 <template>
-    <div class="flex justify-between">
+    <div class="flex justify-between" id="modal-login">
         <h1 class="text-4xl font-black text-gray-800">Entre na sua conta</h1>
 
         <button class="text-4xl text-gray-600 focus:outline-none" @click="closeModal">&times;</button>
@@ -126,6 +126,7 @@ export default {
                     placeholder="*********"
                 />
                 <span
+                    id="password-error"
                     v-if="!!state.password.errorMessage"
                     class="block font-medium text-brand-danger"
                 >{{ state.password.errorMessage }}</span>

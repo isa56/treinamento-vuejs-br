@@ -106,6 +106,7 @@ export default {
 
                 <div v-if="!state.hasError" class="flex ml-20 mr-5">
                     <icon
+                        id="copy-apikey"
                         @click="handleCopy"
                         name="copy"
                         :color="brandColors.graydark"
