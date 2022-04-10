@@ -6,6 +6,8 @@
 
 # Arquivos de configuração:
 /dashboard/node_modules
+/dashboard/tests
 /widget/node_modules
+/widget/tests
 treinamento-vue.code-workspace
 
