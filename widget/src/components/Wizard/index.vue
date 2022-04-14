@@ -13,6 +13,8 @@ import { setFeedbackType, StoreState } from '@/store'
 
 import SelectFeedbackType from './SelectFeedbackType.vue'
 import WriteAFeedback from './WriteAFeedback.vue'
+import Success from './Success.vue'
+import ErrorState from './Error.vue'
 
 interface SetupReturn {
     handleSelectFeedbackType(type: string): void;
@@ -21,16 +23,14 @@ interface SetupReturn {
 }
 
 export default defineComponent({
-    components: { SelectFeedbackType, WriteAFeedback },
+    components: { SelectFeedbackType, WriteAFeedback, Success, Error: ErrorState },
     setup(): SetupReturn {
 
         const store = useStore()
         const { next } = useNavigation()
 
         function handleSelectFeedbackType(type: string): void {
-
             setFeedbackType(type)
-
         }
 
         return {
