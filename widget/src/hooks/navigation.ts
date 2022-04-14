@@ -5,19 +5,15 @@ import {
 } from '@/store'
 
 export interface Navigation {
-    next(): void;
     back(): void;
+    next(): void;
+    setErrorState(): void;
+    setSuccessState(): void;
 }
 
 export default function useNavigation(): Navigation {
 
     const store = useStore()
-
-    function next(): void {
-        if (store.currentComponent === 'SelectFeedbackType') {
-            setCurrentComponent('WriteAFeedback')
-        }
-    }
 
     function back(): void {
         if (store.currentComponent === 'WriteAFeedback') {
@@ -26,7 +22,22 @@ export default function useNavigation(): Navigation {
         }
     }
 
-    return { next, back }
+    function next(): void {
+        if (store.currentComponent === 'SelectFeedbackType') {
+            setCurrentComponent('WriteAFeedback')
+        }
+    }
+
+    function setErrorState(): void {
+        setCurrentComponent('Error')
+    }
+
+    function setSuccessState(): void {
+        setCurrentComponent('Success')
+    }
+
+
+    return { back, next, setErrorState, setSuccessState }
 
 }
 
