@@ -27,7 +27,9 @@ export default defineComponent({
 
     <div class="fixed z-50 bottom-0 right-0 mb-5 mr-5 bg-brand-main rounded-full
         py-3 px-5 flex items-center shadow-xl cursor-pointer select-none
-        animate__animated animate__fadeInUp animate__faster" @click="() => emit('open-box')">
+        animate__animated animate__fadeInUp animate__faster" @click="() => emit('open-box')"
+        id="widget-open-button"
+        >
 
         <icon name="chat" color="white" size="27" class="mr-3" />
 

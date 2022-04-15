@@ -54,7 +54,7 @@ export default defineComponent({
             try {
 
                 const response = await services.feedbacks.create({
-                    apiKey: store.apiKey,
+                    apikey: store.apiKey,
                     device: window.navigator.userAgent,
                     fingerprint: store.fingerprint,
                     page: store.currentPage,

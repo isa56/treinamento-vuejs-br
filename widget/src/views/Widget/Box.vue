@@ -2,8 +2,9 @@
 
 import { computed, ComputedRef, defineComponent, reactive, SetupContext } from 'vue'
 
-import { brand } from '../../../palette.js'
 import colors from 'tailwindcss/colors'
+
+import { brand } from '../../../palette.js'
 import useStore from '@/hooks/store'
 import useNavigation, { Navigation } from '@/hooks/navigation'
 import Icon from '@/components/Icon/index.vue'
@@ -16,9 +17,7 @@ interface SetupReturn {
     canShowAdditionalControlAndInfo: ComputedRef<boolean>;
     colors: Record<string, string>;
     emit: SetupContext['emit'];
-    label: ComputedRef<string>
-    // colors: string
-    // colors: TailwindColors;
+    label: ComputedRef<string>;
 }
 
 export default defineComponent({
@@ -57,17 +56,14 @@ export default defineComponent({
         const canShowAdditionalControlAndInfo = computed<boolean>(() => {
             return store.currentComponent !== 'Success' && store.currentComponent !== 'Error'
         })
-
-
-
         return {
+            emit,
+            colors,
+            label,
             back,
             brandColors: brand,
             canGoBack,
-            canShowAdditionalControlAndInfo,
-            colors,
-            emit,
-            label,
+            canShowAdditionalControlAndInfo
         }
     },
 

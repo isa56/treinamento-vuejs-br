@@ -16,6 +16,7 @@
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/tailwindcss": "^3.0.10",
+    "@vue/babel-preset-app": "^5.0.4",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-e2e-cypress": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
@@ -25,7 +26,7 @@
     "@vue/test-utils": "^2.0.0-0",
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "autoprefixer": "^10.4.4",
-    "babel-jest": "^27.0.6",
+    "babel-jest": "^27.5.1",
     "cypress": "^8.3.0",
     "jest": "^27.0.5",
     "lint-staged": "^11.1.2",
