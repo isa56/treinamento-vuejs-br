@@ -2,7 +2,7 @@
 
 import { computed, ComputedRef, defineComponent, reactive, SetupContext } from 'vue'
 
-import { brand } from "../../../palette.js"
+import { brand } from '../../../palette.js'
 import colors from 'tailwindcss/colors'
 import useStore from '@/hooks/store'
 import useNavigation, { Navigation } from '@/hooks/navigation'

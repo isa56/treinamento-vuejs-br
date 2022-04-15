@@ -3,11 +3,9 @@ import { computed, ComputedRef, defineComponent, reactive } from "vue"
 import useStore from "@/hooks/store"
 import { setCurrentComponent, setMessage } from "@/store"
 import useNavigation from "@/hooks/navigation"
-// import services from "@/services"
+import services from "@/services"
 
 import Icon from "@/components/Icon/index.vue"
-
-const services = {}
 
 type State = {
     feedback: string;
@@ -39,6 +37,7 @@ export default defineComponent({
         const submitButtonIsDisabled = computed<boolean>(() => {
             return !state.feedback.length
         })
+
 
         function handleError(error: Error) {
             state.hasError = error
@@ -72,7 +71,10 @@ export default defineComponent({
                 state.isLoading = false
 
             } catch (error) {
-                handleError(error)
+                if (error instanceof Error) {
+                    handleError(error)
+                }
+                console.log(error)
             }
         }
 

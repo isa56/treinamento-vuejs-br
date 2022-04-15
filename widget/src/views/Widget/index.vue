@@ -1,5 +1,6 @@
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import useIframeControl from '@/hooks/iframe'
+import { defineComponent, onMounted, reactive } from 'vue'
 
 import Box from './Box.vue'
 import Standby from './Standby.vue'
@@ -21,16 +22,24 @@ export default defineComponent({
 
     setup(): SetupReturn {
 
+        const iframe = useIframeControl()
         const state = reactive<State>({
             component: 'Standby',
         })
 
 
+        onMounted(() => {
+            iframe.updateCoreValueOnStore()
+        })
+
+
         function handleCloseBox(): void {
+            iframe.notifyClose()
             state.component = 'Standby'
         }
 
         function handleOpenBox(): void {
+            iframe.notifyOpen()
             state.component = 'Box'
         }
 

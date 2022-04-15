@@ -9,11 +9,9 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "useDefineForClassFields": true,
+    "noImplicitAny": false,
     "sourceMap": true,
     "baseUrl": ".",
-    "noImplicitAny": false,
     "types": [
       "webpack-env",
       "jest"
@@ -39,9 +37,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "typeRoots": [
-    "./typings",
-    "./node_modules/@types/"
   ]
 }
