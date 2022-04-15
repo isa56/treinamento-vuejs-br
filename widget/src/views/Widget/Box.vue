@@ -57,13 +57,13 @@ export default defineComponent({
             return store.currentComponent !== 'Success' && store.currentComponent !== 'Error'
         })
         return {
-            emit,
-            colors,
-            label,
             back,
             brandColors: brand,
             canGoBack,
-            canShowAdditionalControlAndInfo
+            canShowAdditionalControlAndInfo,
+            colors,
+            emit,
+            label,
         }
     },
 

@@ -80,9 +80,7 @@ export default {
     <div class="flex flex-col items-center justify-center h-64 bg-brand-gray">
         <h1 class="text-4xl font-black text-center text-gray-800">Credenciais</h1>
 
-        <p
-            class="text-lg text-center text-gray-800 font-regular"
-        >Guia de instalação e geração de suas credenciais</p>
+        <p class="text-lg text-center text-gray-800 font-regular">Guia de instalação e geração de suas credenciais</p>
     </div>
 
     <div class="flex justify-center w-full h-full">
@@ -91,64 +89,34 @@ export default {
 
             <p class="mt-10 text-lg text-gray-800 font-regular">Esta é a sua chave de API</p>
 
-            <content-loader
-                v-if="store.Global.isLoading || state.isLoading"
-                class="rounded"
-                height="50px"
-                width="600px"
-            />
+            <content-loader v-if="store.Global.isLoading || state.isLoading" class="rounded" height="50px"
+                width="600px" />
             <span v-if="state.hasError">Erro ao carregar a API Key</span>
-            <div
-                v-else
-                class="flex py-3 pl-5 py-20 mt-2 w-full justify-between rounded items-center bg-brand-gray lg:w-2/3"
-            >
+            <div v-else
+                class="flex py-3 pl-5 py-20 mt-2 w-full justify-between rounded items-center bg-brand-gray lg:w-2/3">
                 <span v-if="!state.hasError" id="apikey">{{ store.User.currentUser.apiKey }}</span>
 
                 <div v-if="!state.hasError" class="flex ml-20 mr-5">
-                    <icon
-                        id="copy-apikey"
-                        @click="handleCopy"
-                        name="copy"
-                        :color="brandColors.graydark"
-                        size="24"
-                        class="cursor-pointer"
-                    />
-                    <icon
-                        @click="handleGenerateApiKey"
-                        name="loading"
-                        :color="brandColors.graydark"
-                        size="24"
-                        class="cursor-pointer ml-3"
-                        id="generate-apikey"
-                    />
+                    <icon id="copy-apikey" @click="handleCopy" name="copy" :color="brandColors.graydark" size="24"
+                        class="cursor-pointer" />
+                    <icon @click="handleGenerateApiKey" name="loading" :color="brandColors.graydark" size="24"
+                        class="cursor-pointer ml-3" id="generate-apikey" />
                 </div>
             </div>
 
-            <p
-                class="mt-5 text-lg text-gray-800 font-regular"
-            >Coloque o script abaixo em seu site para começar a receber feedbacks!</p>
+            <p class="mt-5 text-lg text-gray-800 font-regular">Coloque o script abaixo em seu site para começar a
+                receber feedbacks!</p>
 
-            <content-loader
-                v-if="store.Global.isLoading || state.isLoading"
-                class="rounded"
-                height="50px"
-                width="600px"
-            />
+            <content-loader v-if="store.Global.isLoading || state.isLoading" class="rounded" height="50px"
+                width="600px" />
 
-            <div
-                v-else
-                class="flex py-3 pl-5 pr-20 mt-2 bg-brand-gray w-full lg:w-2/3 overflow-x-scroll"
-            >
+            <div v-else class="flex py-3 pl-5 pr-20 mt-2 bg-brand-gray w-full lg:w-2/3 overflow-x-scroll">
                 <span v-if="state.hasError">Erro ao carrgear o script</span>
-                <pre v-else class="break-normal w-full">&lt;script src="https://isa56-feedbacker-widget.netlify.app?api_key={{ store.User.currentUser.apiKey }}"&gt;&lt;/script&gt;</pre>
+                <pre v-else
+                    class="break-normal w-full">&lt;script defer async onload="init('{{ store.User.currentUser.apiKey }}')" src="https://isa56-feedbacker-widget.netlify.app/init.js"&gt;&lt;/script&gt;</pre>
                 <div class="flex ml-20 mr-5">
-                    <icon
-                        @click="handleCopy"
-                        name="copy"
-                        :color="brandColors.graydark"
-                        size="24"
-                        class="cursor-pointer"
-                    />
+                    <icon @click="handleCopy" name="copy" :color="brandColors.graydark" size="24"
+                        class="cursor-pointer" />
                 </div>
             </div>
         </div>
